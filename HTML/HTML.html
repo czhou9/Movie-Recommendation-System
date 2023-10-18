@@ -1,0 +1,86 @@
+<html>
+<head>
+    <style>
+        h2 {
+            color: #03a1fb;
+            font-family: verdana;
+            font-size: 300%;
+        }
+        .center {
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .div_center {
+            display: flex;
+            justify-content: center;
+        }
+        .table_style {
+            font-size: 11pt;
+            font-family: Arial;
+            border-collapse: collapse;
+            border: 1px solid silver;
+
+        }
+        .table_style td, th {
+            padding: 5px;
+        }
+        .table_style tr:nth-child(even) {
+            background: #E0E0E0;
+        }
+        .table_style tr:hover {
+            background: silver;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<link rel="stylesheet" type="text/css" />
+<body>
+<div class="div_center">
+<img src="{{url_for('static', filename='image/banner.png')}}">
+</div>
+<h2 style="text-align:center">Team 3 Movie Recommender</h2>
+<div style="text-align:center">
+    <form method="POST" action="/">
+            <label >User ID:
+                <input type="number" name="user_id" value="" min="0" max="100">
+            </label>
+        <br><br>
+        <label >Movie:
+            <input type="text" name="movie_title" value="">
+        </label>
+        <br><br>
+<!--        <input type="submit" name="action" value="Get Default Recommendations">-->
+
+        {{ welcome_message }}
+        <br> <br>
+        <div>
+            <table class="center">
+                <tr>
+                    <td><input style="width:150px;" type="submit" name="action" value="Content based" /></td>
+                    <td><input style="width:150px;" type="submit" name="action" value="Surprise SVD" /></td>
+                    <td><input style="width:150px;" type="submit" name="action" value="Model based" /></td>
+                </tr>
+                <tr>
+                    <td><input style="width:150px;" type="submit" name="action" value="Content based2" /></td>
+                    <td><input style="width:150px;" type="submit" name="action" value="Memory based2" /></td>
+                    <td><input style="width:150px;" type="submit" name="action" value="" /></td>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+        <div class="div_center">
+        {% for table in recommendation_tables %}
+<!--        {{titles[loop.index]}}-->
+        {{ table|safe }}
+        {% endfor %}
+        </div>
+        <br><br>
+        <div class="div_center">
+            {% for table in user_ratings_tables %}
+            {{ table|safe }}
+            {% endfor %}
+        </div>
+    </form>
+</div>
+</body>
+</html>
